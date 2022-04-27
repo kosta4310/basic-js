@@ -21,11 +21,13 @@ function dateSample(sampleActivity) {
   let res = false;
   if (!sampleActivity) return res;
   if (typeof sampleActivity != "string") return res;
-  if (sampleActivity.match(/\D/)) return res;
-  sampleActivity = Number.parseInt(sampleActivity);
 
-  // if (!!sampleActivity) return res;
+  if (Number.isNaN(+sampleActivity)) return res;
+  if (+sampleActivity == 0) return res;
+  sampleActivity = Number.parseFloat(sampleActivity);
+
   if (sampleActivity <= 0 || sampleActivity >= 15) return res;
+
   res = Math.ceil(
     (Math.log(MODERN_ACTIVITY / sampleActivity) / 0.693) * HALF_LIFE_PERIOD
   );
